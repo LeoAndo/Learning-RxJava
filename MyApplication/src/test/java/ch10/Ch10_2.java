@@ -4,18 +4,18 @@ import io.reactivex.Observable;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Ch10_2 {
     @Test
     public void testBlockingSubscribe() {
-        AtomicInteger hitCount = new AtomicInteger();
-        Observable<Long> source = Observable.interval(1,
-                        TimeUnit.SECONDS)
+        Observable<Long> source = Observable.interval(1, TimeUnit.SECONDS)
                 .take(5);
-        source.subscribe(i -> hitCount.incrementAndGet());
-        assertEquals(5, hitCount.get());
+
+        source.test()
+                .awaitDone(6, TimeUnit.SECONDS)  // Wait a bit longer than needed to ensure completion
+                .assertValueCount(5)             // Verify we got 5 emissions
+                .assertComplete()                // Verify the stream completed
+                .assertNoErrors();              // Verify no errors occurred
     }
+
 }
