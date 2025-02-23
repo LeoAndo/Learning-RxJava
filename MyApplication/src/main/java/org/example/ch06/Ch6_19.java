@@ -1,13 +1,12 @@
 package org.example.ch06;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 
 import java.util.concurrent.TimeUnit;
 
 public class Ch6_19 {
     public static void main(String[] args) {
-        Disposable d = Observable.interval(1, TimeUnit.SECONDS)
+        var d = Observable.interval(1, TimeUnit.SECONDS)
                 .doOnDispose(() -> System.out.println("Disposing on thread"
                                 + Thread.currentThread().getName()))
                 .subscribe(i -> System.out.println("Received " +

@@ -5,7 +5,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Ch8_3 {
     public static void main(String[] args) {
-        Flowable.range(1, 999_999_999)
+        var subscribe = Flowable.range(1, 999_999_999)
                 .map(MyItem::new)
                 .observeOn(Schedulers.io())
                 .subscribe(myItem -> {
@@ -14,6 +14,8 @@ public class Ch8_3 {
                             myItem.id);
                 });
         sleep(Long.MAX_VALUE);
+
+        subscribe.dispose();
     }
 
     static void sleep(long milliseconds) {

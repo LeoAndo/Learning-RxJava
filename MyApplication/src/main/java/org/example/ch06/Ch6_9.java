@@ -7,21 +7,24 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Ch6_9 {
     public static void main(String[] args) {
-        Observable<Integer> lengths =
+        var lengths =
                 Observable.just("Alpha", "Beta", "Gamma", "Delta",
-                        "Epsilon")
+                                "Epsilon")
                         .subscribeOn(Schedulers.computation())
                         .map(Ch6_9::intenseCalculation)
                         .map(String::length)
                         .publish()
                         .autoConnect(2);
-        lengths.subscribe(i ->
+        var subscribe = lengths.subscribe(i ->
                 System.out.println("Received " + i + " on thread " +
                         Thread.currentThread().getName()));
-        lengths.subscribe(i ->
+        var subscribe1 = lengths.subscribe(i ->
                 System.out.println("Received " + i + " on thread " +
                         Thread.currentThread().getName()));
         sleep(10000);
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 
     public static <T> T intenseCalculation(T value) {

@@ -10,18 +10,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Ch6_18 {
     public static void main(String[] args) {
         int coreCount = Runtime.getRuntime().availableProcessors();
-        AtomicInteger assigner = new AtomicInteger(0);
-        Observable.range(1, 10)
+        var assigner = new AtomicInteger(0);
+        var subscribe = Observable.range(1, 10)
                 .groupBy(i -> assigner.incrementAndGet() %
                         coreCount)
                 .flatMap(grp -> grp.observeOn(Schedulers.io())
-                        .map(i2 -> intenseCalculation(i2))
+                        .map(Ch6_18::intenseCalculation)
                 )
                 .subscribe(i -> System.out.println("Received " + i +
                         " "
                         + LocalTime.now() + " on thread "
                         + Thread.currentThread().getName()));
         sleep(20000);
+
+        subscribe.dispose();
     }
 
     public static <T> T intenseCalculation(T value) {

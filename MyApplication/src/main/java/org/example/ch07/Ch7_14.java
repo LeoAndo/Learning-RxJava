@@ -7,18 +7,20 @@ import java.util.concurrent.TimeUnit;
 
 public class Ch7_14 {
     public static void main(String[] args) {
-        Observable<String> items = Observable.just("Alpha", "Beta",
+        var items = Observable.just("Alpha", "Beta",
                 "Gamma", "Delta", "Epsilon",
                 "Zeta", "Eta", "Theta", "Iota");
 //delay each String to emulate an intense calculation
-        Observable<String> processStrings = items.concatMap(s ->
+        var processStrings = items.concatMap(s ->
                 Observable.just(s)
                         .delay(randomSleepTime(),
                                 TimeUnit.MILLISECONDS)
         );
-        processStrings.subscribe(System.out::println);
+        var subscribe = processStrings.subscribe(System.out::println);
 //keep application alive for 20 seconds
         sleep(20000);
+
+        subscribe.dispose();
     }
 
     public static int randomSleepTime() {

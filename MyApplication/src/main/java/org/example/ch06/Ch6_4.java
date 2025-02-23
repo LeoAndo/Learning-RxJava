@@ -7,18 +7,20 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Ch6_4 {
     public static void main(String[] args) {
-        Observable<String> source1 =
+        var source1 =
                 Observable.just("Alpha", "Beta", "Gamma", "Delta",
-                        "Epsilon")
+                                "Epsilon")
                         .subscribeOn(Schedulers.computation())
-                        .map(s -> intenseCalculation((s)));
-        Observable<Integer> source2 =
+                        .map(Ch6_4::intenseCalculation);
+        var source2 =
                 Observable.range(1, 6)
                         .subscribeOn(Schedulers.computation())
-                        .map(s -> intenseCalculation((s)));
-        Observable.zip(source1, source2, (s, i) -> s + "-" + i)
+                        .map(Ch6_4::intenseCalculation);
+        var subscribe = Observable.zip(source1, source2, (s, i) -> s + "-" + i)
                 .subscribe(System.out::println);
         sleep(20000);
+
+        subscribe.dispose();
     }
 
     public static <T> T intenseCalculation(T value) {

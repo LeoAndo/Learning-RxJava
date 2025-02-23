@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Ch8_15 {
     public static void main(String[] args) {
-        Flowable.interval(1, TimeUnit.MILLISECONDS)
+        var subscribe = Flowable.interval(1, TimeUnit.MILLISECONDS)
                 .onBackpressureDrop(i ->
                         System.out.println("Dropping " + i))
                 .observeOn(Schedulers.io())
@@ -16,6 +16,8 @@ public class Ch8_15 {
                     System.out.println(i);
                 });
         sleep(5000);
+
+        subscribe.dispose();
     }
 
     public static void sleep(long millis) {

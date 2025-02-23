@@ -6,13 +6,16 @@ import io.reactivex.FlowableTransformer;
 
 public class Ch9_3 {
     public static void main(String[] args) {
-        Flowable.just("Alpha", "Beta", "Gamma", "Delta",
+        var subscribe = Flowable.just("Alpha", "Beta", "Gamma", "Delta",
                         "Epsilon")
                 .compose(toImmutableList())
                 .subscribe(System.out::println);
-        Flowable.range(1, 10)
+        var subscribe1 = Flowable.range(1, 10)
                 .compose(toImmutableList())
                 .subscribe(System.out::println);
+
+        subscribe.dispose();
+        subscribe.dispose();
     }
 
     public static <T> FlowableTransformer<T, ImmutableList<T>>

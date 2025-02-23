@@ -8,10 +8,12 @@ import java.util.Collections;
 
 public class Ch9_10 {
     public static void main(String[] args) {
-        Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
+        var subscribe = Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
                 .toList()
                 .compose(toUnmodifiable())
                 .subscribe(System.out::println);
+
+        subscribe.dispose();
     }
 
     public static <T> SingleTransformer<Collection<T>,

@@ -13,8 +13,8 @@ public class Ch8_5 {
                 .doOnNext(s -> System.out.println("Source pushed "
                         + s))
                 .observeOn(Schedulers.io())
-                .map(i -> intenseCalculation(i))
-                .subscribe(new Subscriber<Integer>() {
+                .map(Ch8_5::intenseCalculation)
+                .subscribe(new Subscriber<>() {
                     @Override
                     public void onSubscribe(Subscription
                                                     subscription) {

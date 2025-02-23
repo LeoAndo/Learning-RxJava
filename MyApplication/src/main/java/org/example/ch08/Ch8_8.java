@@ -14,8 +14,10 @@ public class Ch8_8 {
             }
             emitter.onComplete();
         });
-        source.observeOn(Schedulers.io())
+        var subscribe = source.observeOn(Schedulers.io())
                 .subscribe(System.out::println);
         Ch5_21.sleep(1000);
+
+        subscribe.dispose();
     }
 }

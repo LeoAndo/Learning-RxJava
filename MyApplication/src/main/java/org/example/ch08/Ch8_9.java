@@ -14,9 +14,11 @@ public class Ch8_9 {
             }
             emitter.onComplete();
         }, BackpressureStrategy.BUFFER);
-        source.observeOn(Schedulers.io())
+        var subscribe = source.observeOn(Schedulers.io())
                 .subscribe(System.out::println);
         sleep(1000);
+
+        subscribe.dispose();
     }
 
     public static void sleep(long millis) {

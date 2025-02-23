@@ -5,8 +5,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Ch6_12 {
     public static void main(String[] args) {
-        Observable.just("Alpha", "Beta", "Gamma", "Delta",
-                "Epsilon")
+        var subscribe = Observable.just("Alpha", "Beta", "Gamma", "Delta",
+                        "Epsilon")
                 .subscribeOn(Schedulers.computation())
                 .filter(s -> s.length() == 5)
                 .subscribeOn(Schedulers.io())
@@ -15,6 +15,8 @@ public class Ch6_12 {
                         " on thread " +
                         Thread.currentThread().getName()));
         sleep(5000);
+
+        subscribe.dispose();
     }
 
     public static void sleep(int millis) {

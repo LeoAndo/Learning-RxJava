@@ -6,13 +6,6 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.concurrent.ThreadLocalRandom;
-
-import io.reactivex.Flowable;
-import io.reactivex.schedulers.Schedulers;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ch8_6 {
@@ -21,8 +14,8 @@ public class Ch8_6 {
                 .doOnNext(s -> System.out.println("Source pushed "
                         + s))
                 .observeOn(Schedulers.io())
-                .map(i -> intenseCalculation(i))
-                .subscribe(new Subscriber<Integer>() {
+                .map(Ch8_6::intenseCalculation)
+                .subscribe(new Subscriber<>() {
                     Subscription subscription;
                     AtomicInteger count = new AtomicInteger(0);
 

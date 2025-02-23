@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ch8_17 {
     public static void main(String[] args) {
-        rangeReverse(100, -100)
+        var subscribe = rangeReverse(100, -100)
                 .subscribeOn(Schedulers.computation())
                 .doOnNext(i -> System.out.println("Emitting " +
                         i))
@@ -17,6 +17,8 @@ public class Ch8_17 {
                     System.out.println("Received " + i);
                 });
         sleep(50000);
+
+        subscribe.dispose();
     }
 
     static Flowable<Integer> rangeReverse(int upperBound, int

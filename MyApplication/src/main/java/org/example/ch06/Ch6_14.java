@@ -10,8 +10,8 @@ import java.io.FileWriter;
 public class Ch6_14 {
     public static void main(String[] args) {
 //Happens on IO Scheduler
-        Observable.just("WHISKEY/27653/TANGO", "6555/BRAVO",
-                "232352/5675675/FOXTROT")
+        var subscribe = Observable.just("WHISKEY/27653/TANGO", "6555/BRAVO",
+                        "232352/5675675/FOXTROT")
                 .subscribeOn(Schedulers.io())
                 .flatMap(s -> Observable.fromArray(s.split("/")))
                 .doOnNext(s -> System.out.println("Split out " + s
@@ -21,18 +21,20 @@ public class Ch6_14 {
                 .observeOn(Schedulers.computation())
                 .filter(s -> s.matches("[0-9]+"))
                 .map(Integer::valueOf)
-                .reduce((total, next) -> total + next)
+                .reduce(Integer::sum)
                 .doOnSuccess(i -> System.out.println("Calculated sum" + i + " on thread"
-                                + Thread.currentThread().getName()))
+                        + Thread.currentThread().getName()))
 //Switch back to IO Scheduler
                 .observeOn(Schedulers.io())
-                .map(i -> i.toString())
+                .map(Object::toString)
                 .doOnSuccess(s -> System.out.println("Writing " + s
                         + " to file on thread "
                         + Thread.currentThread().getName()))
                 .subscribe(s ->
                         write(s, "/home/thomas/Desktop/output.txt"));
         sleep(1000);
+
+        subscribe.dispose();
     }
 
     public static void write(String text, String path) {

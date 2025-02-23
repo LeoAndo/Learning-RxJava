@@ -7,11 +7,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Ch6_16 {
     public static void main(String[] args) {
-        Observable.range(1, 10)
-                .map(i -> intenseCalculation(i))
+        var subscribe = Observable.range(1, 10)
+                .map(Ch6_16::intenseCalculation)
                 .subscribe(i -> System.out.println("Received " + i +
                         " "
                         + LocalTime.now()));
+
+        subscribe.dispose();
     }
 
     public static <T> T intenseCalculation(T value) {

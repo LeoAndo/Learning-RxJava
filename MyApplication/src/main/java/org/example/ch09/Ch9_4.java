@@ -7,14 +7,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ch9_4 {
     public static void main(String[] args) {
-        Observable<IndexedValue<String>> indexedStrings =
+        var indexedStrings =
                 Observable.just("Alpha", "Beta", "Gamma", "Delta",
-                        "Epsilon")
+                                "Epsilon")
                         .compose(withIndex());
-        indexedStrings.subscribe(v ->
+        var subscribe = indexedStrings.subscribe(v ->
                 System.out.println("Subscriber 1: " + v));
-        indexedStrings.subscribe(v ->
+        var subscribe1 = indexedStrings.subscribe(v ->
                 System.out.println("Subscriber 2: " + v));
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 
     static <T> ObservableTransformer<T, IndexedValue<T>>

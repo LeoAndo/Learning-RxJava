@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Ch8_16 {
     public static void main(String[] args) {
-        randomGenerator(1, 10000)
+        var subscribe = randomGenerator(1, 10000)
                 .subscribeOn(Schedulers.computation())
                 .doOnNext(i -> System.out.println("Emitting " +
                         i))
@@ -17,6 +17,8 @@ public class Ch8_16 {
                     System.out.println("Received " + i);
                 });
         sleep(10000);
+
+        subscribe.dispose();
     }
 
     static Flowable<Integer> randomGenerator(int min, int max) {

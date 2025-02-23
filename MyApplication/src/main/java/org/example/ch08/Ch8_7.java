@@ -15,8 +15,8 @@ public class Ch8_7 {
                 .doOnNext(s -> System.out.println("Source pushed "
                         + s))
                 .observeOn(Schedulers.io())
-                .map(i -> intenseCalculation(i))
-                .subscribe(new Subscriber<Integer>() {
+                .map(Ch8_7::intenseCalculation)
+                .subscribe(new Subscriber<>() {
                     Subscription subscription;
                     AtomicInteger count = new AtomicInteger(0);
 

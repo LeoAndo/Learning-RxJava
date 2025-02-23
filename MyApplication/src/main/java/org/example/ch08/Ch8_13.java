@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Ch8_13 {
     public static void main(String[] args) {
-        Flowable.interval(1, TimeUnit.MILLISECONDS)
+        var subscribe = Flowable.interval(1, TimeUnit.MILLISECONDS)
                 .onBackpressureBuffer(10,
                         () -> System.out.println("overflow!"),
                         BackpressureOverflowStrategy.DROP_LATEST)
@@ -18,6 +18,8 @@ public class Ch8_13 {
                     System.out.println(i);
                 });
         sleep(5000);
+
+        subscribe.dispose();
     }
 
     public static void sleep(long millis) {

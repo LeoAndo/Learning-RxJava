@@ -9,14 +9,17 @@ import java.util.List;
 
 public class Ch9_8 {
     public static void main(String[] args) {
-        Observable.range(1, 5)
+        var subscribe = Observable.range(1, 5)
                 .lift(myToList())
                 .subscribe(v -> System.out.println("Operation 1: "
                         + v));
-        Observable.<Integer>empty()
+        var subscribe1 = Observable.<Integer>empty()
                 .lift(myToList())
                 .subscribe(v -> System.out.println("Operation 2: "
                         + v));
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 
     public static <T> ObservableOperator<List<T>, T> myToList() {

@@ -1,22 +1,26 @@
 package org.example.ch06;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * - `executor.shutdown()` はスレッドプールを停止させ、すべてのスレッドを破棄します。
+ * - この指定がなければ、スレッドプールは常に実行状態のまま残ってしまう可能性があります。
+ */
 public class Ch6_7 {
     public static void main(String[] args) {
         int numberOfThreads = 20;
-        ExecutorService executor =
+        var executor =
                 Executors.newFixedThreadPool(numberOfThreads);
-        Scheduler scheduler = Schedulers.from(executor);
-        Observable.just("Alpha", "Beta", "Gamma", "Delta",
-                "Epsilon")
+        var scheduler = Schedulers.from(executor);
+        var subscribe = Observable.just("Alpha", "Beta", "Gamma", "Delta",
+                        "Epsilon")
                 .subscribeOn(scheduler)
                 .doFinally(executor::shutdown)
                 .subscribe(System.out::println);
+
+        subscribe.dispose();
     }
 }
