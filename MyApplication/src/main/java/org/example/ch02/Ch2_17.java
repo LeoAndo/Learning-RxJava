@@ -6,9 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Ch2_17 {
     public static void main(String[] args) {
-        Observable.interval(1, TimeUnit.SECONDS)
+        var subscribe = Observable.interval(1, TimeUnit.SECONDS)
                 .subscribe(s -> System.out.println(s + " Mississippi"));
         sleep(5000);
+        subscribe.dispose();
     }
 
     public static void sleep(int millis) {

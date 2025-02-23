@@ -7,12 +7,15 @@ public class Ch5_23 {
     public static void main(String[] args) {
         Subject<String> subject =
                 BehaviorSubject.create();
-        subject.subscribe(s -> System.out.println("Observer 1: " +
+        var subscribe = subject.subscribe(s -> System.out.println("Observer 1: " +
                 s));
         subject.onNext("Alpha");
         subject.onNext("Beta");
         subject.onNext("Gamma");
-        subject.subscribe(s -> System.out.println("Observer 2: " +
+        var subscribe1 = subject.subscribe(s -> System.out.println("Observer 2: " +
                 s));
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 }

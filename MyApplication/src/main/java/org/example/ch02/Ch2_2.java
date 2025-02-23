@@ -4,7 +4,7 @@ import io.reactivex.Observable;
 
 public class Ch2_2 {
     public static void main(String[] args) {
-        Observable<String> source = Observable.create(emitter -> {
+        var source = Observable.create(emitter -> {
             try {
                 emitter.onNext("Alpha");
                 emitter.onNext("Beta");
@@ -16,7 +16,8 @@ public class Ch2_2 {
                 emitter.onError(e);
             }
         });
-        source.subscribe(s -> System.out.println("RECEIVED: " + s),
+        var subscribe = source.subscribe(s -> System.out.println("RECEIVED: " + s),
                 Throwable::printStackTrace);
+        subscribe.dispose();
     }
 }

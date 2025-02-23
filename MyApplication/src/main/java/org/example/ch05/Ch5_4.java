@@ -1,19 +1,19 @@
 package org.example.ch05;
 
 import io.reactivex.Observable;
-import io.reactivex.observables.ConnectableObservable;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Ch5_4 {
     public static void main(String[] args) {
-        ConnectableObservable<Integer> threeInts =
-                Observable.range(1, 3).publish();
-        Observable<Integer> threeRandoms = threeInts.map(i ->
-                randomInt());
-        threeRandoms.subscribe(i -> System.out.println("Observer 1: " + i));
-        threeRandoms.subscribe(i -> System.out.println("Observer 2: " + i));
+        var threeInts = Observable.range(1, 3).publish();
+        var threeRandoms = threeInts.map(i -> randomInt());
+        var subscribe = threeRandoms.subscribe(i -> System.out.println("Observer 1: " + i));
+        var subscribe1 = threeRandoms.subscribe(i -> System.out.println("Observer 2: " + i));
         threeInts.connect();
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 
     public static int randomInt() {

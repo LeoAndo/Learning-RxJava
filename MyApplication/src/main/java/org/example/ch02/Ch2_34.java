@@ -1,16 +1,15 @@
 package org.example.ch02;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.ResourceObserver;
 
 import java.util.concurrent.TimeUnit;
 
 public class Ch2_34 {
     public static void main(String[] args) {
-        Observable<Long> source =
+        var source =
                 Observable.interval(1, TimeUnit.SECONDS);
-        ResourceObserver<Long> myObserver = new
+        var myObserver = new
                 ResourceObserver<Long>() {
                     @Override
                     public void onNext(Long value) {
@@ -28,6 +27,6 @@ public class Ch2_34 {
                     }
                 };
 //capture Disposable
-        Disposable disposable = source.subscribeWith(myObserver);
+        var disposable = source.subscribeWith(myObserver);
     }
 }

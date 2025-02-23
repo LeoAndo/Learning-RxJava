@@ -15,16 +15,20 @@ public class Ch5_27 {
                 .subscribe(subject);
         sleep(2000);
 //multicast to support multiple Observers
-        Observable<String> multicast =
+        var multicast =
                 subject.publish().autoConnect();
 //bring in first Observer
-        multicast.subscribe(s -> System.out.println("Observer 1: "
+        var subscribe = multicast.subscribe(s -> System.out.println("Observer 1: "
                 + s));
         sleep(2000);
 //bring in second Observer
-        multicast.subscribe(s -> System.out.println("Observer 2: "
+        var subscribe1 = multicast.subscribe(s -> System.out.println("Observer 2: "
                 + s));
         sleep(1000);
+
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 
     public static void sleep(long millis) {

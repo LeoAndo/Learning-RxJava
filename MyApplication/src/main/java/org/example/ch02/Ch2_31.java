@@ -4,11 +4,13 @@ import io.reactivex.Observable;
 
 public class Ch2_31 {
     public static void main(String[] args) {
-        Observable<String> source =
+        var source =
                 Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon");
-        source.firstElement().subscribe(
+        var subscribe = source.firstElement().subscribe(
                 s -> System.out.println("RECEIVED " + s),
                 Throwable::printStackTrace,
                 () -> System.out.println("Done!"));
+
+        subscribe.dispose();
     }
 }

@@ -1,15 +1,14 @@
 package org.example.ch02;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 
 import java.util.concurrent.TimeUnit;
 
 public class Ch2_33 {
     public static void main(String[] args) {
-        Observable<Long> seconds =
+        var seconds =
                 Observable.interval(1, TimeUnit.SECONDS);
-        Disposable disposable =
+        var disposable =
                 seconds.subscribe(l -> System.out.println("Received: " + l));
 //sleep 5 seconds
         sleep(5000);

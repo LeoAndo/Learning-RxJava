@@ -9,10 +9,10 @@ public class Ch2_7 {
         Observable<String> source =
                 Observable.just("Alpha", "Beta", "Gamma", "Delta",
                         "Epsilon");
-        Observer<Integer> myObserver = new Observer<Integer>() {
+        Observer<Integer> myObserver = new Observer<>() {
             @Override
             public void onSubscribe(Disposable d) {
-//do nothing with Disposable, disregard for now
+                //do nothing with Disposable, disregard for now
             }
 
             @Override

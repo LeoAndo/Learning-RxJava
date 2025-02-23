@@ -2,7 +2,6 @@ package org.example.ch02;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,13 +10,13 @@ public class Ch2_35 {
             = new CompositeDisposable();
 
     public static void main(String[] args) {
-        Observable<Long> seconds =
+        var seconds =
                 Observable.interval(1, TimeUnit.SECONDS);
 //subscribe and capture disposables
-        Disposable disposable1 =
+        var disposable1 =
                 seconds.subscribe(l -> System.out.println("Observer 1: " +
                         l));
-        Disposable disposable2 =
+        var disposable2 =
                 seconds.subscribe(l -> System.out.println("Observer 2: " +
                         l));
 //put both disposables into CompositeDisposable

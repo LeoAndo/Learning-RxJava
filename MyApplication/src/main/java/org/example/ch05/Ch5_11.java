@@ -12,10 +12,13 @@ public class Ch5_11 {
                 Observable.range(1, 3)
                         .map(i -> randomInt()).publish();
 
-        threeRandoms.subscribe(i -> System.out.println("Observer 1: " + i));
-        threeRandoms.subscribe(i -> System.out.println("Observer 2: " + i));
+        var subscribe = threeRandoms.subscribe(i -> System.out.println("Observer 1: " + i));
+        var subscribe1 = threeRandoms.subscribe(i -> System.out.println("Observer 2: " + i));
 
         threeRandoms.connect();
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 
     public static int randomInt() {

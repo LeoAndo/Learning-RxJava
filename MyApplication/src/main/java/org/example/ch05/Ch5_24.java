@@ -7,13 +7,16 @@ public class Ch5_24 {
     public static void main(String[] args) {
         Subject<String> subject =
                 ReplaySubject.create();
-        subject.subscribe(s -> System.out.println("Observer 1: " +
+        var subscribe = subject.subscribe(s -> System.out.println("Observer 1: " +
                 s));
         subject.onNext("Alpha");
         subject.onNext("Beta");
         subject.onNext("Gamma");
         subject.onComplete();
-        subject.subscribe(s -> System.out.println("Observer 2: " +
+        var subscribe1 = subject.subscribe(s -> System.out.println("Observer 2: " +
                 s));
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 }

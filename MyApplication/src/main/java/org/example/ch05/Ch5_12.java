@@ -1,25 +1,27 @@
 package org.example.ch05;
 
 import io.reactivex.Observable;
-import io.reactivex.observables.ConnectableObservable;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Ch5_12 {
     public static void main(String[] args) {
 
-        ConnectableObservable<Integer> threeRandoms =
+        var threeRandoms =
                 Observable.range(1, 3)
                         .map(i -> randomInt()).publish();
 
 //Observer 1 - print each random integer
-        threeRandoms.subscribe(i -> System.out.println("Observer 1: " + i));
+        var subscribe = threeRandoms.subscribe(i -> System.out.println("Observer 1: " + i));
 
 //Observer 2 - sum the random integers, then print
-        threeRandoms.reduce(0, (total, next) -> total + next)
+        var subscribe1 = threeRandoms.reduce(0, Integer::sum)
                 .subscribe(i -> System.out.println("Observer 2: " + i));
 
         threeRandoms.connect();
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 
     public static int randomInt() {

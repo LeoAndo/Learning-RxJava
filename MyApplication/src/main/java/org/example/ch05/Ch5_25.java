@@ -7,7 +7,7 @@ public class Ch5_25 {
     public static void main(String[] args) {
         Subject<String> subject =
                 AsyncSubject.create();
-        subject.subscribe(s ->
+        var subscribe = subject.subscribe(s ->
                         System.out.println("Observer 1: " + s),
                 Throwable::printStackTrace,
                 () -> System.out.println("Observer 1 done!")
@@ -16,10 +16,14 @@ public class Ch5_25 {
         subject.onNext("Beta");
         subject.onNext("Gamma");
         subject.onComplete();
-        subject.subscribe(s ->
+        var subscribe1 = subject.subscribe(s ->
                         System.out.println("Observer 2: " + s),
                 Throwable::printStackTrace,
                 () -> System.out.println("Observer 2 done!")
         );
+
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 }

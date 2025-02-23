@@ -16,8 +16,9 @@ public class Ch2_4 {
                 emitter.onError(e);
             }
         });
-        source.map(String::length)
+        var subscribe = source.map(String::length)
                 .filter(i -> i >= 5)
                 .subscribe(s -> System.out.println("RECEIVED: " + s));
+        subscribe.dispose();
     }
 }

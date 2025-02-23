@@ -1,14 +1,15 @@
 package org.example.ch05;
 
 import io.reactivex.Observable;
-import io.reactivex.observables.ConnectableObservable;
 
 public class Ch5_2 {
     public static void main(String[] args) {
-        ConnectableObservable<Integer> threeIntegers =
-                Observable.range(1, 3).publish();
-        threeIntegers.subscribe(i -> System.out.println("Observer One:" + i));
-        threeIntegers.subscribe(i -> System.out.println("Observer Two:" + i));
+        var threeIntegers = Observable.range(1, 3).publish();
+        var subscribe = threeIntegers.subscribe(i -> System.out.println("Observer One:" + i));
+        var subscribe1 = threeIntegers.subscribe(i -> System.out.println("Observer Two:" + i));
         threeIntegers.connect();
+
+        subscribe.dispose();
+        subscribe1.dispose();
     }
 }

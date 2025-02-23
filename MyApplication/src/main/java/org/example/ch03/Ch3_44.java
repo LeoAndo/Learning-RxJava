@@ -4,7 +4,7 @@ import io.reactivex.Observable;
 
 public class Ch3_44 {
     public static void main(String[] args) {
-        Observable.just(5, 2, 4, 0, 3, 2, 8)
+        var subscribe = Observable.just(5, 2, 4, 0, 3, 2, 8)
                 .map(i -> {
                     try {
                         return 10 / i;
@@ -16,5 +16,7 @@ public class Ch3_44 {
                                 i),
                         e -> System.out.println("RECEIVED ERROR: " + e)
                 );
+
+        subscribe.dispose();
     }
 }
